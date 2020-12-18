@@ -12,6 +12,8 @@ class SumController extends GetxController {
 
   @override
   onInit() {
+    super.onInit();
+
     /// 每次更改都会回调
     ever(count1, (_) => print("$_ has been changed"));
 

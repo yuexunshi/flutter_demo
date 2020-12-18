@@ -8,7 +8,7 @@ class UserController extends GetxController {
   updateUser(int count) {
     user.update((value) {
       value.name = WordPair.random().asPascalCase;
-      value.count = count;
+      value.age = count;
     });
   }
 }

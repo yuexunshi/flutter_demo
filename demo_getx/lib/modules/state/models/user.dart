@@ -1,5 +1,5 @@
 class User {
-  User({this.name = '', this.count = 0});
+  User({this.name = '', this.age = 0});
   String name;
-  int count;
+  int age;
 }

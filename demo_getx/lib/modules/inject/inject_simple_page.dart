@@ -8,10 +8,8 @@ class InjectSimplePage extends GetView<InjectSimpleController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('MyPage')),
-      body: Container(
-        child: GetX<InjectSimpleController>(builder: (_) {
-          return Text(_.obj.toString());
-        }),
+      body: Center(
+        child: Obx(() => Text(controller.obj.toString())),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

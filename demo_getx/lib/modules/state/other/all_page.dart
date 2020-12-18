@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'countController.dart';
-import 'userController.dart';
+import 'count_controller.dart';
+import 'user_controller.dart';
 
-class FirstPage extends StatelessWidget {
+class AllPage extends StatelessWidget {
   final CountController countController = Get.put(CountController());
   @override
   Widget build(BuildContext context) {
@@ -17,40 +17,44 @@ class FirstPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GetBuilder<CountController>(
-              builder: (s) => Text(
-                'GetBuilder更新值: ${s.count}',
+              builder: (controller) => Text(
+                'GetBuilder更新CountController的值: ${controller.count}',
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             GetX<UserController>(
               init: UserController(),
-              builder: (_) => Text('GetX更新值: ${_.user.value.name}'),
+              builder: (_) => Text('GetX更新user的name值: ${_.user.value.name}'),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Obx(
-              () => Text('Obx更新值: ${Get.find<UserController>().user.value.count}'),
+              () => Text('Obx更新user的age值: ${Get.find<UserController>().user.value.age}'),
             ),
             SizedBox(
               height: 20,
             ),
             RaisedButton(
-              child: Text("Update Name &  Count"),
+              child: Text("Update UserController"),
               onPressed: () {
                 Get.find<UserController>().updateUser(Get.find<CountController>().count);
               },
             ),
             SizedBox(
-              height: 100,
+              height: 20,
+            ),
+            RaisedButton(
+              child: Text("Update CountController"),
+              onPressed: () {
+                Get.find<CountController>().increment();
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Get.find<CountController>().increment();
-          }),
     );
   }
 }

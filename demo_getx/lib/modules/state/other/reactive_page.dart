@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'sumController.dart';
+import 'sum_controller.dart';
 
 class ReactivePage extends StatelessWidget {
   @override
@@ -11,34 +11,55 @@ class ReactivePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Second Page'),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.all(Get.width * .3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            GetX<SumController>(
-              builder: (_) {
-                print("count1 rebuild");
-                return Text(
-                  'Counter #1:    ${_.count1}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                );
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Counter #1:',
+                ),
+                GetX<SumController>(
+                  builder: (_) {
+                    print("count1 rebuild");
+                    return Text(
+                      '${_.count1}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    );
+                  },
+                ),
+              ],
             ),
-            Text("                        +"),
-            GetX<SumController>(
-              builder: (_) {
-                print("count2 rebuild");
-                return Text(
-                  'Counter #2:    ${_.count2}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                );
-              },
+            Text("+"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Counter #2:',
+                ),
+                Obx(() => Text(
+                      '${Get.find<SumController>().count2}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ],
             ),
-            Text("                        ="),
-            Obx(() => Text(
-                  'Sum:                 ${Get.find<SumController>().sum}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
+            Text("="),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Sum:',
+                ),
+                Obx(() => Text(
+                      '${Get.find<SumController>().sum}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ],
+            ),
             SizedBox(
               height: 40,
             ),
