@@ -1,3 +1,4 @@
+import 'package:demo_getx/modules/inject/inject_home_page.dart';
 import 'package:demo_getx/modules/inject/inject_simple_binding.dart';
 import 'package:demo_getx/modules/inject/inject_simple_page.dart';
 import 'package:demo_getx/modules/local/local_page.dart';
@@ -57,7 +58,7 @@ class HomePage extends StatelessWidget {
                   title: '依赖注入',
                   icon: Icons.inbox_outlined,
                   onTap: () {
-                    Get.to(InjectSimplePage(), binding: InjectSimpleBinding());
+                    Get.to(InjectHomePage());
                   },
                 ),
                 Card(

@@ -1,12 +1,28 @@
+import 'package:demo_getx/modules/inject/global/lazy_controller.dart';
 import 'package:demo_getx/routes/app_pages.dart';
 import 'package:demo_getx/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'modules/home/home_page.dart';
+import 'modules/inject/global/async_controller.dart';
+import 'modules/inject/global/put_controller.dart';
 import 'modules/local/app_translation.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put<PutController>(PutController());
+  Get.lazyPut<LazyController>(() => LazyController());
+  Get.putAsync<AsyncController>(() async {
+    final controller = await AsyncController.getInstance();
+    return controller;
+  });
+  Get.putAsync<SharedPreferences>(() async {
+    final sp = await SharedPreferences.getInstance();
+    return sp;
+  });
+
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: '/',

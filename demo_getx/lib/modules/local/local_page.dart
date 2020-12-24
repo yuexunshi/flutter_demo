@@ -1,3 +1,5 @@
+import 'package:demo_getx/modules/state/cross/cross_two_controller.dart';
+import 'package:demo_getx/modules/state/cross/cross_two_second_controller.dart';
 import 'package:demo_getx/widget/CheetahButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

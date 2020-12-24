@@ -4,4 +4,10 @@ class CrossOneController extends GetxController {
   int _age = 0;
   get age => this._age;
   set age(value) => this._age = value;
+
+  @override
+  void onInit() {
+    super.onInit();
+    print('==CrossOneController==onInit');
+  }
 }

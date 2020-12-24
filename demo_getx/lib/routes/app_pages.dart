@@ -1,5 +1,6 @@
-
 import 'package:demo_getx/modules/home/home_page.dart';
+import 'package:demo_getx/modules/inject/inject_simple_binding.dart';
+import 'package:demo_getx/modules/inject/inject_simple_page.dart';
 import 'package:demo_getx/modules/nav/nav_page.dart';
 import 'package:demo_getx/modules/nav/simple_page.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,11 @@ abstract class AppPages {
     GetPage(
       name: "${Routes.NAV_SIMPLE}/:title",
       page: () => NavSimplePage(),
+    ),
+    GetPage(
+      name: Routes.INJECT,
+      page: () => InjectSimplePage(),
+      binding: InjectSimpleBinding(),
     ),
   ];
 }

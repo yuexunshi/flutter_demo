@@ -5,4 +5,5 @@ abstract class Routes {
   static const HOME = '/home';
   static const NAV = '/nav';
   static const NAV_SIMPLE = '/nav-simple';
+  static const INJECT = '/inject';
 }
