@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_dio/http/app_exceptions.dart';
+import 'package:flutter_dio/http/net_cache.dart';
 import 'package:flutter_dio/http/proxy.dart';
 import 'package:flutter_dio/http/retry_interceptor.dart';
+
 import 'cache.dart';
 import 'connectivity_request_retrier.dart';
 import 'error_interceptor.dart';
 import 'global.dart';
-import 'net_cache.dart';
 
 class Http {
   ///超时时间
@@ -32,8 +32,6 @@ class Http {
         connectTimeout: CONNECT_TIMEOUT,
         // 响应流上前后两次接受到数据的间隔，单位为毫秒。
         receiveTimeout: RECEIVE_TIMEOUT,
-        // Http请求头.
-        headers: {},
       );
 
       dio = new Dio(options);
@@ -41,7 +39,7 @@ class Http {
       // 添加拦截器
       dio.interceptors.add(ErrorInterceptor());
       // 加内存缓存
-      // dio.interceptors.add(NetCacheInterceptor());
+      dio.interceptors.add(NetCacheInterceptor());
       if (Global.retryEnable) {
         dio.interceptors.add(
           RetryOnConnectionChangeInterceptor(
@@ -80,11 +78,15 @@ class Http {
       int connectTimeout,
       int receiveTimeout,
       List<Interceptor> interceptors}) {
+    // Set contentType here
+    // BUG: You cannot set both contentType param and a content-type header
+    // https://github.com/flutterchina/dio/issues/1094#issuecomment-812323178
     dio.options = dio.options.copyWith(
-      baseUrl: baseUrl,
-      connectTimeout: connectTimeout,
-      receiveTimeout: receiveTimeout,
-    );
+        baseUrl: baseUrl,
+        connectTimeout: connectTimeout,
+        receiveTimeout: receiveTimeout,
+        contentType: 'application/json; charset=utf-8',
+        headers: {});
     if (interceptors != null && interceptors.isNotEmpty) {
       dio.interceptors.addAll(interceptors);
     }

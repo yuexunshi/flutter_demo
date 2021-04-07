@@ -3,7 +3,6 @@ import 'package:flutter_dio/http/api_response.dart';
 import 'package:flutter_dio/http/http_utils.dart';
 
 import 'gan_repository.dart';
-import 'http/http.dart';
 import 'models/category_entity.dart';
 
 void main() {
