@@ -41,7 +41,7 @@ class Http {
       // 添加拦截器
       dio.interceptors.add(ErrorInterceptor());
       // 加内存缓存
-      dio.interceptors.add(NetCacheInterceptor());
+      // dio.interceptors.add(NetCacheInterceptor());
       if (Global.retryEnable) {
         dio.interceptors.add(
           RetryOnConnectionChangeInterceptor(
