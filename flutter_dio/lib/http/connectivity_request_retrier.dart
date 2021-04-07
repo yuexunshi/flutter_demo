@@ -29,7 +29,22 @@ class DioConnectivityRequestRetrier {
               onReceiveProgress: requestOptions.onReceiveProgress,
               onSendProgress: requestOptions.onSendProgress,
               queryParameters: requestOptions.queryParameters,
-              options: requestOptions,
+              options: Options(
+                  contentType: requestOptions.contentType,
+                  extra: requestOptions.extra,
+                  followRedirects: requestOptions.followRedirects,
+                  headers: requestOptions.headers,
+                  listFormat: requestOptions.listFormat,
+                  maxRedirects: requestOptions.maxRedirects,
+                  method: requestOptions.method,
+                  receiveDataWhenStatusError:
+                      requestOptions.receiveDataWhenStatusError,
+                  receiveTimeout: requestOptions.receiveTimeout,
+                  requestEncoder: requestOptions.requestEncoder,
+                  responseDecoder: requestOptions.responseDecoder,
+                  responseType: requestOptions.responseType,
+                  sendTimeout: requestOptions.sendTimeout,
+                  validateStatus: requestOptions.validateStatus),
             ),
           );
         }
