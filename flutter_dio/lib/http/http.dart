@@ -80,7 +80,7 @@ class Http {
       int connectTimeout,
       int receiveTimeout,
       List<Interceptor> interceptors}) {
-    dio.options = dio.options.merge(
+    dio.options = dio.options.copyWith(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
       receiveTimeout: receiveTimeout,
@@ -127,7 +127,7 @@ class Http {
     bool cacheDisk = false,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions = requestOptions.merge(extra: {
+    requestOptions = requestOptions.copyWith(extra: {
       "refresh": refresh,
       "noCache": noCache,
       "cacheKey": cacheKey,
@@ -135,7 +135,7 @@ class Http {
     });
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     Response response;
     response = await dio.get(path,
@@ -156,7 +156,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.post(path,
         data: data,
@@ -178,7 +178,7 @@ class Http {
 
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.put(path,
         data: data,
@@ -199,7 +199,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.patch(path,
         data: data,
@@ -221,7 +221,7 @@ class Http {
 
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.delete(path,
         data: data,
@@ -241,7 +241,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.post(path,
         data: FormData.fromMap(params),
