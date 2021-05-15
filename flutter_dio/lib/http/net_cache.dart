@@ -25,8 +25,8 @@ class NetCacheInterceptor extends Interceptor {
   var cache = LinkedHashMap<String, CacheObject>();
 
   @override
-  onRequest(RequestOptions options) async {
-    if (!CACHE_ENABLE) return options;
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    if (!CACHE_ENABLE) return handler.next(options);
 
     // refresh标记是否是刷新缓存
     bool refresh = options.extra["refresh"] == true;
@@ -44,7 +44,7 @@ class NetCacheInterceptor extends Interceptor {
         await SpUtil().remove(options.uri.toString());
       }
 
-      return options;
+      return handler.next(options);
     }
 
     // get 请求，开启缓存
@@ -60,7 +60,7 @@ class NetCacheInterceptor extends Interceptor {
         //若缓存未过期，则返回缓存内容
         if ((DateTime.now().millisecondsSinceEpoch - ob.timeStamp) / 1000 <
             CACHE_MAXAGE) {
-          return cache[key].response;
+          handler.resolve(cache[key].response);
         } else {
           //若已过期则删除缓存，继续向服务器请求
           cache.remove(key);
@@ -71,9 +71,12 @@ class NetCacheInterceptor extends Interceptor {
       if (cacheDisk) {
         var cacheData = SpUtil().getJSON(key);
         if (cacheData != null) {
-          return Response(
-            statusCode: 200,
-            data: cacheData,
+          handler.resolve(
+            Response(
+              statusCode: 200,
+              data: cacheData,
+              requestOptions: options,
+            ),
           );
         }
       }
@@ -81,12 +84,12 @@ class NetCacheInterceptor extends Interceptor {
   }
 
   @override
-  onError(DioError err) async {
+  onError(DioError err, ErrorInterceptorHandler handler) async {
     // 错误状态不缓存
   }
 
   @override
-  onResponse(Response response) async {
+  onResponse(Response response, ResponseInterceptorHandler handler) async {
     // 如果启用缓存，将返回结果保存到缓存
     if (CACHE_ENABLE) {
       await _saveCache(response);
@@ -94,7 +97,7 @@ class NetCacheInterceptor extends Interceptor {
   }
 
   Future<void> _saveCache(Response object) async {
-    RequestOptions options = object.request;
+    RequestOptions options = object.requestOptions;
 
     // 只缓存 get 的请求
     if (options.extra["noCache"] != true &&

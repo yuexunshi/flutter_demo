@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_dio/http/app_exceptions.dart';
+import 'package:flutter_dio/http/net_cache.dart';
 import 'package:flutter_dio/http/proxy.dart';
 import 'package:flutter_dio/http/retry_interceptor.dart';
+
 import 'cache.dart';
 import 'connectivity_request_retrier.dart';
 import 'error_interceptor.dart';
 import 'global.dart';
-import 'net_cache.dart';
 
 class Http {
   ///超时时间
@@ -32,8 +32,6 @@ class Http {
         connectTimeout: CONNECT_TIMEOUT,
         // 响应流上前后两次接受到数据的间隔，单位为毫秒。
         receiveTimeout: RECEIVE_TIMEOUT,
-        // Http请求头.
-        headers: {},
       );
 
       dio = new Dio(options);
@@ -80,11 +78,15 @@ class Http {
       int connectTimeout,
       int receiveTimeout,
       List<Interceptor> interceptors}) {
-    dio.options = dio.options.merge(
-      baseUrl: baseUrl,
-      connectTimeout: connectTimeout,
-      receiveTimeout: receiveTimeout,
-    );
+    // Set contentType here
+    // BUG: You cannot set both contentType param and a content-type header
+    // https://github.com/flutterchina/dio/issues/1094#issuecomment-812323178
+    dio.options = dio.options.copyWith(
+        baseUrl: baseUrl,
+        connectTimeout: connectTimeout,
+        receiveTimeout: receiveTimeout,
+        contentType: 'application/json; charset=utf-8',
+        headers: {});
     if (interceptors != null && interceptors.isNotEmpty) {
       dio.interceptors.addAll(interceptors);
     }
@@ -127,7 +129,7 @@ class Http {
     bool cacheDisk = false,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions = requestOptions.merge(extra: {
+    requestOptions = requestOptions.copyWith(extra: {
       "refresh": refresh,
       "noCache": noCache,
       "cacheKey": cacheKey,
@@ -135,7 +137,7 @@ class Http {
     });
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     Response response;
     response = await dio.get(path,
@@ -156,7 +158,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.post(path,
         data: data,
@@ -178,7 +180,7 @@ class Http {
 
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.put(path,
         data: data,
@@ -199,7 +201,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.patch(path,
         data: data,
@@ -221,7 +223,7 @@ class Http {
 
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.delete(path,
         data: data,
@@ -241,7 +243,7 @@ class Http {
     Options requestOptions = options ?? Options();
     Map<String, dynamic> _authorization = getAuthorizationHeader();
     if (_authorization != null) {
-      requestOptions = requestOptions.merge(headers: _authorization);
+      requestOptions = requestOptions.copyWith(headers: _authorization);
     }
     var response = await dio.post(path,
         data: FormData.fromMap(params),
