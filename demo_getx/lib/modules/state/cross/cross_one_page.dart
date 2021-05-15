@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'cross_one_controller.dart';
 import 'cross_three_controller.dart';
+import 'cross_three_page.dart';
 import 'cross_two_controller.dart';
 import 'cross_two_page.dart';
 import 'cross_two_second_controller.dart';
@@ -24,9 +25,10 @@ class CrossOnePage extends StatelessWidget {
           }),
           CheetahButton('去第二个页面', () {
             Get.to(CrossTwoPage());
+            // Get.to(() => CrossTwoPage());
           }),
           CheetahButton('去第三个个页面', () {
-            Get.to(CrossTwoPage());
+            Get.to(CrossThreePage());
           }),
           CheetahButton('打印CrossTwoController', () {
             print(Get.find<CrossTwoController>());
