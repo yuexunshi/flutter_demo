@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'http_config.dart';
 
 class AppDio with DioMixin implements Dio {
-  AppDio({BaseOptions? options, DioConfig? dioConfig}) {
+  AppDio({BaseOptions? options, HttpConfig? dioConfig}) {
     options ??= BaseOptions(
       baseUrl: dioConfig?.baseUrl ?? "",
       contentType: 'application/json',

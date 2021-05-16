@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  DioConfig dioConfig =
-      DioConfig(baseUrl: "https://gank.io/", proxy: "192.168.2.249:8888");
-  DioClient client = DioClient(dioConfig: dioConfig);
-  Get.put<DioClient>(client);
+  HttpConfig dioConfig =
+      HttpConfig(baseUrl: "https://gank.io/", proxy: "192.168.2.249:8888");
+  HttpClient client = HttpClient(dioConfig: dioConfig);
+  Get.put<HttpClient>(client);
   runApp(MyApp());
 }
 
@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DioClient dio;
+  HttpClient dio;
 
   void get() async {
     HttpResponse appResponse = await dio.get("api/v2/banners");
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    dio = Get.find<DioClient>();
+    dio = Get.find<HttpClient>();
   }
 
   @override

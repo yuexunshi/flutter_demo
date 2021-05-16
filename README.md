@@ -1,5 +1,7 @@
 # flutter_demo
-
+感谢[WingCH](https://github.com/WingCH)的贡献
+- 新增dio4.0版本的封装
+对应地址：[https://juejin.cn/post/6962739332922736676](https://juejin.cn/post/6962739332922736676)
 - 新增动态环境配置
 对应地址：[简书](https://www.jianshu.com/p/fbe9ec3a8590)，[掘金](https://juejin.cn/post/6961244443693285384)
 - 新增dio的封装

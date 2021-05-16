@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 /// dio 配置项
-class DioConfig {
+class HttpConfig {
   final String? baseUrl;
   final String? proxy;
   final String? cookiesPath;
@@ -9,7 +9,7 @@ class DioConfig {
   final int sendTimeout;
   final int receiveTimeout;
 
-  DioConfig({
+  HttpConfig({
     this.baseUrl,
     this.proxy,
     this.cookiesPath,

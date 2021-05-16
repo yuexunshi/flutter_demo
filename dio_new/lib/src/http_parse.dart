@@ -2,12 +2,15 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_new/src/default_http_transformer.dart';
 
 import '../dio_new.dart';
 import 'http_transformer.dart';
 
 HttpResponse handleResponse(Response? response,
     {HttpTransformer? httpTransformer}) {
+  httpTransformer ??= DefaultHttpTransformer.getInstance();
+
   // 返回值异常
   if (response == null) {
     return HttpResponse.failureFromError();
@@ -20,7 +23,7 @@ HttpResponse handleResponse(Response? response,
   }
   // 接口调用成功
   if (_isRequestSuccess(response.statusCode)) {
-    return HttpResponse.success(response.data);
+    return httpTransformer.parse(response);
   } else {
     // 接口调用失败
     return HttpResponse.failure(
@@ -33,7 +36,7 @@ HttpResponse handleException(Exception exception) {
   return HttpResponse.failureFromError(parseException);
 }
 
-/// 健全失败
+/// 鉴权失败
 bool _isTokenTimeout(int? code) {
   return code == 401;
 }
@@ -43,7 +46,7 @@ bool _isRequestSuccess(int? statusCode) {
   return (statusCode != null && statusCode >= 200 && statusCode < 300);
 }
 
-AppException _parseException(Exception error) {
+HttpException _parseException(Exception error) {
   if (error is DioError) {
     switch (error.type) {
       case DioErrorType.connectTimeout:
@@ -84,12 +87,12 @@ AppException _parseException(Exception error) {
 
       case DioErrorType.other:
         if (error.error is SocketException) {
-          return NetworkException(message: error.error.message);
+          return NetworkException(message: error.message);
         } else {
-          return UnknownException(error.error.message);
+          return UnknownException(error.message);
         }
       default:
-        return UnknownException(error.error.message);
+        return UnknownException(error.message);
     }
   } else {
     return UnknownException(error.toString());

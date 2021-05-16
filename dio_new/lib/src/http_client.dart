@@ -6,10 +6,10 @@ import 'http_response.dart';
 import 'http_config.dart';
 import 'http_parse.dart';
 
-class DioClient {
+class HttpClient {
   late AppDio _dio;
 
-  DioClient({BaseOptions? options, DioConfig? dioConfig})
+  HttpClient({BaseOptions? options, HttpConfig? dioConfig})
       : _dio = AppDio(options: options, dioConfig: dioConfig);
 
   Future<HttpResponse> get(String uri,

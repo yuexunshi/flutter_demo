@@ -3,7 +3,7 @@ import 'http_exceptions.dart';
 class HttpResponse {
   late bool ok;
   dynamic? data;
-  AppException? error;
+  HttpException? error;
 
   HttpResponse._internal({this.ok = false});
 
@@ -21,7 +21,7 @@ class HttpResponse {
     this.ok = false;
   }
 
-  HttpResponse.failureFromError([AppException? error]) {
+  HttpResponse.failureFromError([HttpException? error]) {
     this.error = error ?? UnknownException();
     this.ok = false;
   }
