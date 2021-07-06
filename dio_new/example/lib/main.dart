@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HttpConfig dioConfig =
-      HttpConfig(baseUrl: "https://gank.io/", proxy: "192.168.2.249:8888");
+      HttpConfig(baseUrl: "https://gank.io/",);
+      // HttpConfig(baseUrl: "https://gank.io/", proxy: "192.168.2.249:8888");
   HttpClient client = HttpClient(dioConfig: dioConfig);
   Get.put<HttpClient>(client);
   runApp(MyApp());
