@@ -52,9 +52,9 @@ HttpException _parseException(Exception error) {
       case DioErrorType.connectTimeout:
       case DioErrorType.receiveTimeout:
       case DioErrorType.sendTimeout:
-        return NetworkException(message: error.error.message);
+        return NetworkException(message: error.message);
       case DioErrorType.cancel:
-        return CancelException(error.error.message);
+        return CancelException(error.message);
       case DioErrorType.response:
         try {
           int? errCode = error.response?.statusCode;
@@ -79,10 +79,10 @@ HttpException _parseException(Exception error) {
               return UnauthorisedException(
                   message: "不支持HTTP协议请求", code: errCode);
             default:
-              return UnknownException(error.error.message);
+              return UnknownException(error.message);
           }
         } on Exception catch (_) {
-          return UnknownException(error.error.message);
+          return UnknownException(error.message);
         }
 
       case DioErrorType.other:

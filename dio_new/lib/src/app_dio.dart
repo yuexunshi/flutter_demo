@@ -43,7 +43,7 @@ class AppDio with DioMixin implements Dio {
           requestBody: true));
     }
     if (dioConfig?.interceptors?.isNotEmpty ?? false) {
-      interceptors.addAll(interceptors);
+      interceptors.addAll(dioConfig!.interceptors!);
     }
     httpClientAdapter = DefaultHttpClientAdapter();
     if (dioConfig?.proxy?.isNotEmpty ?? false) {

@@ -3,20 +3,14 @@ import '../dio_new.dart';
 import 'http_transformer.dart';
 
 class DefaultHttpTransformer extends HttpTransformer {
-// 假设接口返回类型
-//   {
-//     "code": 100,
-//     "data": {},
-//     "message": "success"
-// }
   @override
   HttpResponse parse(Response response) {
-    // if (response.data["code"] == 100) {
-    //   return HttpResponse.success(response.data["data"]);
-    // } else {
-    // return HttpResponse.failure(errorMsg:response.data["message"],errorCode: response.data["code"]);
-    // }
-    return HttpResponse.success(response.data["data"]);
+    if (response.data["code"] == 1 && response.data["msg"] == "成功") {
+      return HttpResponse.success(response.data["data"]);
+    } else {
+      return HttpResponse.failure(
+          errorMsg: response.data["message"], errorCode: response.data["code"]);
+    }
   }
 
   /// 单例对象

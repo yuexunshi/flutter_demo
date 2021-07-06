@@ -19,5 +19,5 @@ class HttpConfig {
     this.receiveTimeout = Duration.millisecondsPerMinute,
   });
 
-  // static DioConfig of() => Get.find<DioConfig>();
+// static DioConfig of() => Get.find<DioConfig>();
 }
