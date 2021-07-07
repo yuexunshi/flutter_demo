@@ -31,7 +31,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: Get.height * .35, left: 20, right: 20),
+            padding:
+                EdgeInsets.only(top: Get.height * .35, left: 20, right: 20),
             child: GridView.count(
               crossAxisCount: 2,
               physics: NeverScrollableScrollPhysics(),
@@ -81,11 +82,12 @@ class Card extends StatelessWidget {
   final String title;
   final IconData icon;
   final GestureTapCallback onTap;
+
   const Card({
-    Key key,
-    @required this.title,
-    @required this.icon,
-    @required this.onTap,
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -108,7 +110,11 @@ class Card extends StatelessWidget {
             ),
             Spacer(),
             SizedBox(height: 20),
-            Text(title, style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 15)),
+            Text(title,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(fontSize: 15)),
           ],
         ),
       ),

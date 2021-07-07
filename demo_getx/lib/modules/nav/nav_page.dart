@@ -38,10 +38,13 @@ class NavPage extends StatelessWidget {
             ),
             CheetahButton(
               '删除当前路由',
-              () => Get.removeRoute(Get.routing.route),
+              () => Get.removeRoute(Get.routing.route!),
             ),
+            CheetahButton('中间件', () {
+              Get.toNamed(Routes.MIDDLEWARE_PAGE);
+            }),
             CheetahButton('flutter路由', () {
-              navigator.pushNamed(Routes.NAV_SIMPLE);
+              navigator?.pushNamed(Routes.NAV_SIMPLE);
             }),
             CheetahButton('对话框', () {
               Get.defaultDialog(onConfirm: () => print("Ok"), middleText: "Dialog made in 3 lines of code");

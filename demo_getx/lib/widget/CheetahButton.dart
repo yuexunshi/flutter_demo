@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CheetahButton extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final String text;
 
   const CheetahButton(this.text, this.onPressed);

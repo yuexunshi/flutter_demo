@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NavSimplePage extends StatelessWidget {
-  final String title = Get.parameters['title'];
-  final String name = Get.parameters['name'];
+  final String? title = Get.parameters['title']?.toString();
+  final String? name = Get.parameters['name']?.toString();
 
-  final String argName = Get.arguments;
+  final String? argName = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     print(Get.parameters);

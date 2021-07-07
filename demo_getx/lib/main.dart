@@ -24,15 +24,21 @@ void main() {
   });
 
   runApp(GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    initialRoute: '/',
-    theme: appThemeData,
-    locale: Locale('fr', 'Ca'),
-    fallbackLocale: Locale('en', 'US'), // 添加一个回调语言选项，以备上面指定的语言翻译不存在
-    defaultTransition: Transition.fade,
-    translationsKeys: AppTranslation.translations,
-    getPages: AppPages.pages,
-    home: HomePage(),
-  ));
+      debugShowCheckedModeBanner: false,
+      initialRoute: Routes.INITIAL,
+      getPages: AppPages.pages,
+      theme: appThemeData,
+      locale: Locale('fr', 'Ca'),
+      fallbackLocale: Locale('en', 'US'),
+      // 添加一个回调语言选项，以备上面指定的语言翻译不存在
+      defaultTransition: Transition.fade,
+      translationsKeys: AppTranslation.translations,
+      home: HomePage(),
+      routingCallback: (routing) {
+        debugPrint('=======main:${routing?.current}');
+        if (routing?.current == '/second') {
+          // 如果登录。。。
+        }
+      }));
 }
 //用Flutter创建一个简单的SnackBar，你必须获得Scaffold的context，或者你必须使用一个GlobalKey附加到你的Scaffold上。
