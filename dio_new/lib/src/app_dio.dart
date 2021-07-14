@@ -14,7 +14,7 @@ class AppDio with DioMixin implements Dio {
       connectTimeout: dioConfig?.connectTimeout,
       sendTimeout: dioConfig?.sendTimeout,
       receiveTimeout: dioConfig?.receiveTimeout,
-    );
+    )..headers = dioConfig?.headers;
     this.options = options;
 
     // DioCacheManager

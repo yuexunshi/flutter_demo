@@ -46,7 +46,11 @@ flutter:
     # assets-generator-begin
     # assets/img/*
     - assets/img/girl.jpg
-    # assets-generator-end  
+    - assets/img/
+    - assets/img/promotion1.png
+    - assets/img/3.0x/home/
+#    - assets/img/3.0x/
+    # assets-generator-end
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

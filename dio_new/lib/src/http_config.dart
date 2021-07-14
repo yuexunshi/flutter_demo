@@ -8,9 +8,11 @@ class HttpConfig {
   final int connectTimeout;
   final int sendTimeout;
   final int receiveTimeout;
+  final Map<String, dynamic>? headers;
 
   HttpConfig({
     this.baseUrl,
+    this.headers,
     this.proxy,
     this.cookiesPath,
     this.interceptors,
