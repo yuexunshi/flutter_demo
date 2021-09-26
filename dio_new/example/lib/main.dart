@@ -2,10 +2,15 @@ import 'package:dio_new/dio_new.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'net_cache.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HttpConfig dioConfig =
-      HttpConfig(baseUrl: "https://gank.io/",);
+  HttpConfig(baseUrl: "https://gank.io/",
+          proxy: '192.168.100.19:8888',
+          interceptors: [NetCacheInterceptor()]
+      );
       // HttpConfig(baseUrl: "https://gank.io/", proxy: "192.168.2.249:8888");
   HttpClient client = HttpClient(dioConfig: dioConfig);
   Get.put<HttpClient>(client);
